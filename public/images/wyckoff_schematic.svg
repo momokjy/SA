@@ -1,0 +1,49 @@
+<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="400" fill="#0f172a" />
+  
+  <!-- Grid Lines (Optional) -->
+  <line x1="0" y1="100" x2="800" y2="100" stroke="#1e293b" stroke-width="1" stroke-dasharray="4" />
+  <line x1="0" y1="300" x2="800" y2="300" stroke="#1e293b" stroke-width="1" stroke-dasharray="4" />
+
+  <!-- Phase Dividers -->
+  <line x1="150" y1="0" x2="150" y2="400" stroke="#334155" stroke-width="1" stroke-dasharray="4" />
+  <text x="75" y="30" fill="#94a3b8" font-family="sans-serif" font-size="14" text-anchor="middle">Phase A</text>
+  
+  <line x1="400" y1="0" x2="400" y2="400" stroke="#334155" stroke-width="1" stroke-dasharray="4" />
+  <text x="275" y="30" fill="#94a3b8" font-family="sans-serif" font-size="14" text-anchor="middle">Phase B</text>
+
+  <line x1="550" y1="0" x2="550" y2="400" stroke="#334155" stroke-width="1" stroke-dasharray="4" />
+  <text x="475" y="30" fill="#94a3b8" font-family="sans-serif" font-size="14" text-anchor="middle">Phase C</text>
+
+  <line x1="700" y1="0" x2="700" y2="400" stroke="#334155" stroke-width="1" stroke-dasharray="4" />
+  <text x="625" y="30" fill="#94a3b8" font-family="sans-serif" font-size="14" text-anchor="middle">Phase D</text>
+  <text x="750" y="30" fill="#94a3b8" font-family="sans-serif" font-size="14" text-anchor="middle">Phase E</text>
+
+  <!-- Chart Path -->
+  <path d="
+    M 0 50 
+    Q 50 200 80 250 T 120 350 
+    Q 140 200 160 150 
+    Q 200 320 250 330 
+    Q 300 180 350 160 
+    Q 400 340 450 320 
+    Q 480 380 500 360 
+    Q 520 200 550 140 
+    Q 580 250 600 240 
+    Q 650 100 700 80 
+    Q 750 150 800 50
+  " stroke="#22d3ee" stroke-width="3" fill="none" />
+
+  <!-- Labels -->
+  <text x="80" y="240" fill="#cbd5e1" font-family="sans-serif" font-size="12">PS</text>
+  <text x="120" y="370" fill="#cbd5e1" font-family="sans-serif" font-size="12" font-weight="bold">SC</text>
+  <text x="160" y="140" fill="#cbd5e1" font-family="sans-serif" font-size="12">AR</text>
+  <text x="250" y="350" fill="#cbd5e1" font-family="sans-serif" font-size="12">ST</text>
+  <text x="500" y="390" fill="#facc15" font-family="sans-serif" font-size="14" font-weight="bold">SPRING</text>
+  <text x="550" y="130" fill="#cbd5e1" font-family="sans-serif" font-size="12">SOS</text>
+  <text x="600" y="260" fill="#cbd5e1" font-family="sans-serif" font-size="12">LPS</text>
+  <text x="700" y="70" fill="#cbd5e1" font-family="sans-serif" font-size="12">SOS</text>
+  <text x="750" y="170" fill="#cbd5e1" font-family="sans-serif" font-size="12">BU</text>
+
+</svg>
