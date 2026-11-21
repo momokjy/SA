@@ -3,17 +3,13 @@
 import { ReactNode, useMemo, useState } from "react";
 import { clsx } from "clsx";
 import { AlertTriangle, ArrowRight, Bitcoin, Info, RefreshCw, RotateCcw } from "lucide-react";
-import {
-    CalcInput,
-    CalcResult,
-    Direction,
-    calculate,
-    priceFromRoe,
-    roeFromPrice,
-} from "@/lib/btcReentry";
+import { CalcResult, Direction, calculate, priceFromRoe, roeFromPrice } from "@/lib/btcReentry";
 import NumberField from "./NumberField";
 import ValueChart from "./ValueChart";
 import ScaleHeatmap from "./ScaleHeatmap";
+import { SaveBar, SavedList, autoName } from "./SavedScenarios";
+import { useSavedScenarios } from "./scenarioStore";
+import { CURRENCY_BASE, DEFAULTS, State, reentryLeverageOf, reentryPriceOf, toInput } from "./state";
 import {
     Currency,
     currencyUnit,
@@ -28,47 +24,6 @@ import {
 /* ------------------------------------------------------------------ */
 /* 상태 & 기본값                                                         */
 /* ------------------------------------------------------------------ */
-
-interface State {
-    currency: Currency;
-    direction: Direction;
-    leverage: number;
-    entryPrice: number;
-    margin: number;
-    exitPrice: number;
-    closePct: number;
-    movePct: number;
-    reentryPct: number;
-    sameLeverage: boolean;
-    reentryLeverage: number;
-    feePct: number;
-    slippagePct: number;
-    taxPct: number;
-    mmrPct: number;
-}
-
-const CURRENCY_BASE: Record<Currency, { entryPrice: number; margin: number }> = {
-    KRW: { entryPrice: 150_000_000, margin: 10_000_000 },
-    USDT: { entryPrice: 100_000, margin: 10_000 },
-};
-
-const DEFAULTS: State = {
-    currency: "KRW",
-    direction: "long",
-    leverage: 1,
-    entryPrice: CURRENCY_BASE.KRW.entryPrice,
-    margin: CURRENCY_BASE.KRW.margin,
-    exitPrice: CURRENCY_BASE.KRW.entryPrice * 0.95,
-    closePct: 100,
-    movePct: -5,
-    reentryPct: 100,
-    sameLeverage: true,
-    reentryLeverage: 1,
-    feePct: 0.05,
-    slippagePct: 0,
-    taxPct: 0,
-    mmrPct: 0.5,
-};
 
 const PRESETS: {
     label: string;
@@ -264,28 +219,12 @@ export default function ReentryCalculator() {
 
     const unit = currencyUnit(s.currency);
     const priceDecimals = s.currency === "KRW" ? 0 : 2;
-    const reLev = s.sameLeverage ? s.leverage : s.reentryLeverage;
-    const reentryPrice = s.exitPrice * (1 + s.movePct / 100);
+    const reLev = reentryLeverageOf(s);
+    const reentryPrice = reentryPriceOf(s);
 
-    const input: CalcInput = useMemo(
-        () => ({
-            direction: s.direction,
-            leverage: s.leverage,
-            entryPrice: s.entryPrice,
-            margin: s.margin,
-            exitPrice: s.exitPrice,
-            closeRatio: s.closePct / 100,
-            reentryPrice,
-            reentryRatio: s.reentryPct / 100,
-            reentryLeverage: reLev,
-            feeRate: s.feePct / 100,
-            slippageRate: s.slippagePct / 100,
-            taxRate: s.taxPct / 100,
-            mmr: s.mmrPct / 100,
-        }),
-        [s, reentryPrice, reLev]
-    );
+    const input = useMemo(() => toInput(s), [s]);
     const result = useMemo(() => calculate(input), [input]);
+    const saved = useSavedScenarios();
 
     const roe = s.entryPrice > 0 && s.leverage > 0 ? roeFromPrice(input, s.exitPrice) : 0;
 
@@ -549,6 +488,12 @@ export default function ReentryCalculator() {
 
                 {/* ---------------- 결과 ---------------- */}
                 <div className="min-w-0 space-y-6">
+                    <SaveBar
+                        defaultName={autoName(s, result.ok ? result.roeAtExit : roe)}
+                        disabled={!result.ok}
+                        storageOk={saved.storageOk}
+                        onSave={(name) => saved.add(name, s)}
+                    />
                     {result.ok ? (
                         <Results r={result} s={s} reLev={reLev} />
                     ) : (
@@ -567,6 +512,17 @@ export default function ReentryCalculator() {
                     )}
                 </div>
             </div>
+
+            <SavedList
+                items={saved.items}
+                onRemove={saved.remove}
+                onClear={saved.clear}
+                onLoad={(item) => {
+                    setS({ ...item.state });
+                    setPriceStatus({ kind: "ok", msg: `저장한 계산 "${item.name}" 불러옴` });
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+            />
         </div>
     );
 }
