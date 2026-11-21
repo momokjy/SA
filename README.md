@@ -57,3 +57,4 @@ Since this project was created in an environment without Node.js, you need to in
     -   롱/숏, 레버리지(격리 마진·청산가), 부분 정리, 부분 재진입, 수수료·슬리피지·세금 반영
     -   보유 유지 대비 평가금 비교, 손익 역전 가격, 원래 수량을 되찾는 재진입가
     -   수익률 × 가격 변동 매트릭스, 업비트(KRW)/바이낸스(USDT) 실시간 가격 불러오기
+    -   계산 저장(브라우저 localStorage): 저장 목록에서 비교·불러오기·삭제, CSV 내보내기(엑셀 호환)
