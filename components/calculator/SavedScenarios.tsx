@@ -20,16 +20,18 @@ export function autoName(s: State, roe: number): string {
     return `${positionLabel(s)} · 수익률 ${fmtPct(roe, 1)} → 변동 ${fmtPct(s.movePct / 100, 1)}`;
 }
 
-/** 결과 영역 맨 위: 현재 계산 저장 */
+/** 페이지 상단: 현재 계산 저장 + 저장 목록 바로가기 */
 export function SaveBar({
     defaultName,
     disabled,
     storageOk,
+    savedCount,
     onSave,
 }: {
     defaultName: string;
     disabled: boolean;
     storageOk: boolean;
+    savedCount: number;
     onSave: (name: string) => void;
 }) {
     const [name, setName] = useState("");
@@ -51,8 +53,8 @@ export function SaveBar({
             }}
             className="flex flex-col gap-2 rounded-xl border border-protoss-border bg-protoss-card p-3 sm:flex-row sm:items-center"
         >
-            <label htmlFor="save-name" className="flex-none font-mono text-xs text-slate-400">
-                이 계산 저장
+            <label htmlFor="save-name" className="flex flex-none items-center gap-1.5 font-mono text-xs text-protoss-accent-gold">
+                <Save className="h-3.5 w-3.5" /> 이 계산 저장
             </label>
             <input
                 id="save-name"
@@ -76,6 +78,18 @@ export function SaveBar({
                 {saved ? <Check className="h-3.5 w-3.5" /> : <Save className="h-3.5 w-3.5" />}
                 {saved ? "저장됨" : "저장"}
             </button>
+            {savedCount > 0 && (
+                <a
+                    href="#saved"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        document.getElementById("saved")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }}
+                    className="inline-flex flex-none items-center justify-center gap-1.5 rounded-md border border-protoss-border px-3 py-1.5 font-mono text-xs text-slate-300 transition-colors hover:border-protoss-accent-blue/60 hover:text-protoss-accent-blue"
+                >
+                    <FolderOpen className="h-3.5 w-3.5" /> 저장한 계산 {savedCount}개
+                </a>
+            )}
             {!storageOk && (
                 <p className="text-[11px] text-amber-300 sm:basis-full">
                     이 브라우저에서는 저장소를 쓸 수 없어(사생활 보호 모드 등) 새로고침하면 저장 목록이 사라집니다. CSV로 내보내 보관하세요.

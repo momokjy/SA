@@ -301,6 +301,14 @@ export default function ReentryCalculator() {
                 </div>
             </header>
 
+            <SaveBar
+                defaultName={autoName(s, result.ok ? result.roeAtExit : roe)}
+                disabled={!result.ok}
+                storageOk={saved.storageOk}
+                savedCount={saved.items.length}
+                onSave={(name) => saved.add(name, s)}
+            />
+
             <div className="grid gap-6 lg:grid-cols-[minmax(320px,400px)_1fr]">
                 {/* ---------------- 입력 ---------------- */}
                 <div className="space-y-4">
@@ -488,12 +496,6 @@ export default function ReentryCalculator() {
 
                 {/* ---------------- 결과 ---------------- */}
                 <div className="min-w-0 space-y-6">
-                    <SaveBar
-                        defaultName={autoName(s, result.ok ? result.roeAtExit : roe)}
-                        disabled={!result.ok}
-                        storageOk={saved.storageOk}
-                        onSave={(name) => saved.add(name, s)}
-                    />
                     {result.ok ? (
                         <Results r={result} s={s} reLev={reLev} />
                     ) : (
