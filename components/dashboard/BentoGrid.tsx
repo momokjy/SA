@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, TrendingUp, Activity, Lock, ShieldCheck, Zap } from "lucide-react";
+import { ArrowUpRight, TrendingUp, Activity, Lock, ShieldCheck, Zap, Calculator } from "lucide-react";
 import { archives } from "@/data";
 import { Article } from "@/data/types";
 import { clsx } from "clsx";
@@ -36,6 +36,26 @@ export default function BentoGrid({ filter }: BentoGridProps) {
                     Institutional-Grade Research Terminal // Vol. 1-5 Loaded
                 </p>
             </div>
+
+            {/* Tools */}
+            {!activeVol && (
+                <Link
+                    href="/calculator"
+                    className="group flex items-center justify-between gap-4 bg-protoss-card border border-protoss-border rounded-xl p-5 transition-all duration-300 hover:border-protoss-accent-gold/50 hover:-translate-y-0.5"
+                >
+                    <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-lg bg-protoss-accent-gold/10 border border-protoss-accent-gold/30 flex items-center justify-center">
+                            <Calculator className="w-5 h-5 text-protoss-accent-gold" />
+                        </div>
+                        <div>
+                            <div className="text-xs font-mono text-slate-500">TOOLS</div>
+                            <div className="text-white font-bold">BTC 재진입 계산기</div>
+                            <div className="text-sm text-slate-400">손절·익절 후 가격 변동 뒤 다시 들어가면 포지션 규모가 얼마나 달라질까</div>
+                        </div>
+                    </div>
+                    <ArrowUpRight className="w-5 h-5 flex-none text-protoss-accent-gold opacity-60 transition-opacity group-hover:opacity-100" />
+                </Link>
+            )}
 
             {/* Volume 1: Macro */}
             {showVol(1) && (

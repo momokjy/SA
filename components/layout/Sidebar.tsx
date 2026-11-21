@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Home, TrendingUp, Zap, Activity, Lock, ShieldCheck, Search } from "lucide-react";
+import { Home, TrendingUp, Zap, Activity, Lock, ShieldCheck, Search, Calculator } from "lucide-react";
 import { clsx } from "clsx";
 import { useState } from "react";
 import GlobalSearch from "./GlobalSearch";
@@ -14,6 +14,7 @@ const navItems = [
     { name: "Strategy", path: "/?filter=strategy", icon: Activity },
     { name: "Tax/Life", path: "/?filter=life", icon: Lock },
     { name: "Tech", path: "/?filter=tech", icon: ShieldCheck },
+    { name: "BTC Calc", path: "/calculator", icon: Calculator },
 ];
 
 export default function Sidebar() {
@@ -51,11 +52,13 @@ export default function Sidebar() {
                         // 3. If path starts with /report, no sidebar item is strictly active (or maybe Home?)
 
                         let isActive = false;
-                        if (item.path === "/" && !item.path.includes("filter")) {
+                        if (item.path === "/") {
                             isActive = pathname === "/" && !currentFilter;
                         } else if (item.path.includes("filter")) {
                             const itemFilter = item.path.split("=")[1];
-                            isActive = currentFilter === itemFilter;
+                            isActive = pathname === "/" && currentFilter === itemFilter;
+                        } else {
+                            isActive = pathname.startsWith(item.path);
                         }
 
                         return (
