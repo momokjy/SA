@@ -32,7 +32,8 @@ Since this project was created in an environment without Node.js, you need to in
     -   `report/`: Article Renderer.
     -   `widgets/`: Interactive widgets (Tax Calc, Coffee Slider, RWA Visualizer).
     -   `calculator/`: BTC 재진입 계산기 UI (입력, 차트, 매트릭스).
-    -   `views/`: 외부 관점 정리 페이지 (사실/해석/의견 라벨, 출처 링크).
+    -   `views/`: 외부 관점 정리 페이지 (사실/해석/의견 라벨, BTC 주봉 캔들 + 가격 레벨 차트, 용어 설명, 출처 링크).
+        캔들은 브라우저에서 바이낸스 공개 시세(`data-api.binance.vision`)를 불러오고, 실패하면 `data/btcWeeklySnapshot.ts` 스냅샷을 씁니다.
 -   `lib/btcReentry.ts`: 재진입 계산 엔진 (UI와 분리된 순수 함수).
 -   `data/`: **Source of Truth**.
     -   `volume1.ts` ~ `volume5.ts`: Raw data files containing the exact text from the whitepapers.
