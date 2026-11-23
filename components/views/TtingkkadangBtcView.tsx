@@ -2,7 +2,8 @@ import { ReactNode } from "react";
 import Link from "next/link";
 import { clsx } from "clsx";
 import { AlertTriangle, ArrowLeft, BookOpen, ExternalLink, TrendingDown } from "lucide-react";
-import { FibTimeFigure, PriceLevelMap, RiskRewardFigure } from "./TtingkkadangFigures";
+import { FibTimeFigure, RiskRewardFigure } from "./TtingkkadangFigures";
+import LevelCandleChart from "./LevelCandleChart";
 
 /* ------------------------------------------------------------------ */
 /* 사실 / 해석 / 의견 라벨                                                 */
@@ -392,14 +393,14 @@ export default function TtingkkadangBtcView() {
             {/* 근거 */}
             <Section kind="fact" title="근거">
                 <p className="mb-3 break-keep text-sm leading-relaxed text-slate-400">
-                    그림 1은 근거 1·4·5의 가격 레벨과 원작자의 목표 구간을 한 가격 축에 놓은 것입니다. 용어 뜻은{" "}
+                    그림 1은 실제 비트코인 주봉 캔들 위에 근거 1·4·5의 가격 레벨과 원작자의 목표 구간을 겹친 것입니다. 용어 뜻은{" "}
                     <a href="#glossary" className="text-protoss-accent-blue underline-offset-4 hover:underline">
                         용어 설명
                     </a>
                     에 있습니다.
                 </p>
-                <div className="mx-auto mb-4 max-w-2xl">
-                    <PriceLevelMap />
+                <div className="mb-4">
+                    <LevelCandleChart />
                 </div>
                 <ol className="grid gap-3 md:grid-cols-2">
                     {EVIDENCE.map((e, i) => (
