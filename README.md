@@ -25,12 +25,14 @@ Since this project was created in an environment without Node.js, you need to in
     -   `page.tsx`: Main Dashboard (Bento Grid).
     -   `report/[id]/page.tsx`: Dynamic Article View.
     -   `calculator/page.tsx`: BTC 재진입 계산기 (`/calculator`).
+    -   `views/ttingkkadang-btc/page.tsx`: 띵까당 비트코인 하방 관점 정리 (`/views/ttingkkadang-btc`).
 -   `components/`: UI Components.
     -   `layout/`: Sidebar, Global Search.
     -   `dashboard/`: Bento Grid, Cards.
     -   `report/`: Article Renderer.
     -   `widgets/`: Interactive widgets (Tax Calc, Coffee Slider, RWA Visualizer).
     -   `calculator/`: BTC 재진입 계산기 UI (입력, 차트, 매트릭스).
+    -   `views/`: 외부 관점 정리 페이지 (사실/해석/의견 라벨, 출처 링크).
 -   `lib/btcReentry.ts`: 재진입 계산 엔진 (UI와 분리된 순수 함수).
 -   `data/`: **Source of Truth**.
     -   `volume1.ts` ~ `volume5.ts`: Raw data files containing the exact text from the whitepapers.
