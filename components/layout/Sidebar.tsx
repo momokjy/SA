@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Home, TrendingUp, Zap, Activity, Lock, ShieldCheck, Search, Calculator } from "lucide-react";
+import { Home, TrendingUp, Zap, Activity, Lock, ShieldCheck, Search, Calculator, TrendingDown } from "lucide-react";
 import { clsx } from "clsx";
 import { useState } from "react";
 import GlobalSearch from "./GlobalSearch";
@@ -15,6 +15,7 @@ const navItems = [
     { name: "Tax/Life", path: "/?filter=life", icon: Lock },
     { name: "Tech", path: "/?filter=tech", icon: ShieldCheck },
     { name: "BTC Calc", path: "/calculator", icon: Calculator },
+    { name: "BTC View", path: "/views/ttingkkadang-btc", icon: TrendingDown },
 ];
 
 export default function Sidebar() {
